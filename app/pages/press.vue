@@ -81,10 +81,7 @@ const assets = [
             <dt>Pricing</dt>
             <dd>Free with optional premium subscription (no ads at any tier)</dd>
           </div>
-          <div>
-            <dt>Built for</dt>
-            <dd>RevenueCat Shipaton 2026</dd>
-          </div>
+
           <div>
             <dt>Contact</dt>
             <dd>

@@ -8,7 +8,7 @@ withDefaults(
   }>(),
   {
     heading: 'Tama is coming to Google Play',
-    body: 'Android first, built in the open for RevenueCat Shipaton 2026. Care is free forever — no ads, no romantic roleplay, no paywalled memories.',
+    body: 'Android first, built in the open. Care is free forever — no ads, no romantic roleplay, no paywalled memories.',
     privacy: true,
   },
 )

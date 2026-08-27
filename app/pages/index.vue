@@ -55,7 +55,7 @@ const steps = [
       <div class="hero-glow" aria-hidden="true" />
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">AI companion · Android · Built for Shipaton 2026</p>
+          <p class="eyebrow">AI companion · Android</p>
           <h1>
             Your life,
             <span class="italic">remembered.</span>

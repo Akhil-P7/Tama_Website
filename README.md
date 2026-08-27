@@ -81,8 +81,6 @@ npm run generate
 
 **Akhil Pandey** · [akhilpandey.r15@gmail.com](mailto:akhilpandey.r15@gmail.com)
 
-Built for [RevenueCat Shipaton 2026](https://www.revenuecat.com/shipaton/).
-
 ## License
 
 All rights reserved. Tama name, mascot artwork, and website content © 2026 Akhil Pandey.

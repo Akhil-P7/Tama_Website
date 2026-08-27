@@ -2,7 +2,7 @@
 useTamaSeo({
   title: 'About Tama — Mission & Creator',
   description:
-    'Tama is an AI companion built by Akhil Pandey for RevenueCat Shipaton 2026. It is deliberately non-clinical, non-compulsive, and non-romantic — a friend, not a therapist or a partner substitute.',
+    'Tama is an AI companion built by Akhil Pandey. It is deliberately non-clinical, non-compulsive, and non-romantic — a friend, not a therapist or a partner substitute.',
   path: '/about',
   breadcrumbs: [{ name: 'About', path: '/about' }],
 })
@@ -86,9 +86,7 @@ useTamaSeo({
 
         <div class="builder-card page-card reveal">
           <p>
-            Tama is an independent project by
-            <strong>Akhil Pandey</strong> — a developer building in the open for
-            <strong>RevenueCat Shipaton 2026</strong>. There is no studio behind it, no
+            Tama is an independent app built by a solo developer. There is no studio behind it, no
             venture funding, and no advisory board deciding what ships. Just one person
             trying to build a companion that is genuinely good to have around.
           </p>
@@ -107,31 +105,7 @@ useTamaSeo({
       </div>
     </section>
 
-    <!-- ============================== shipaton ============================ -->
-    <section class="section">
-      <div class="wrap wrap-narrow">
-        <header class="sec-head reveal">
-          <p class="eyebrow">Shipaton 2026</p>
-          <h2>What this is built for</h2>
-        </header>
 
-        <div class="prose reveal">
-          <p>
-            Tama is being built as a submission for
-            <strong>RevenueCat Shipaton 2026</strong> — a global challenge for developers
-            building subscription-powered apps. The constraint is real: ship a genuine,
-            monetisable product, not a prototype. That means real data safety, real
-            privacy policy, real subscription infrastructure, and a real marketing site
-            — this one.
-          </p>
-          <p>
-            Everything you see here — the app, the backend, the policies, and this
-            website — was built from scratch for the Shipaton. The competition deadline
-            shapes the timeline, but the product ambitions extend far beyond it.
-          </p>
-        </div>
-      </div>
-    </section>
 
     <CtaBand />
   </div>

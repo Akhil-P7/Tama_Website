@@ -13,7 +13,7 @@ const releases = [
     date: 'September 2026',
     badge: 'Launch',
     badgeClass: 'badge-warm',
-    summary: 'Initial release — built for RevenueCat Shipaton 2026.',
+    summary: 'Initial release.',
     changes: [
       'Companion chat with four-layer active memory recall',
       'Proactive pattern check-ins with on-device screen-time analysis',
