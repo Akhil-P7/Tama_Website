@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tama AI — Dual-leaf sprout logo mark.
+     Exact Bézier paths from official brand kit (v6 mockup LeafPair component).
+     Usage: R.drawable.ic_leaf_sprout in TamaLogo headers, navbar emblem, etc. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Left sprout leaf -->
+    <path
+        android:fillColor="#B7D9A8"
+        android:pathData="M9,2 C9,2 6,7 9,11 C11,8 11,5 9,2 Z" />
+
+    <!-- Right sprout leaf -->
+    <path
+        android:fillColor="#B7D9A8"
+        android:pathData="M15,1 C15,1 12,6 16,10 C18,6 18,3 15,1 Z" />
+</vector>

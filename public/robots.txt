@@ -1,0 +1,21 @@
+# Tama AI — usetama.me
+# Allow major search engines and AI crawlers.
+
+User-agent: *
+Allow: /
+Disallow:
+
+# AI crawlers — explicitly welcomed.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://usetama.me/sitemap.xml

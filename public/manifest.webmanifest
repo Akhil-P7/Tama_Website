@@ -1,0 +1,21 @@
+{
+  "name": "Tama AI",
+  "short_name": "Tama",
+  "description": "An AI companion that remembers your life.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#081241",
+  "theme_color": "#081241",
+  "icons": [
+    {
+      "src": "/images/tama_mascot_avatar.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/tama_mascot_avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
