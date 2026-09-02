@@ -100,13 +100,24 @@ useTamaSeo({
         </ul>
 
         <h2>Correct ways to describe Tama</h2>
-        <ul>
-          <li>✅ "AI companion"</li>
-          <li>✅ "AI journal"</li>
-          <li>✅ "Conversational companion with memory"</li>
-          <li>❌ "Therapy app" or "mental health tool"</li>
-          <li>❌ "AI girlfriend" or "romantic AI"</li>
-          <li>❌ "Social media app"</li>
+        <!-- The tick/cross carries the meaning here rather than decorating it, so
+             each icon is labelled instead of aria-hidden — without it both lists
+             would read as an identical run of quoted phrases. -->
+        <ul class="verdicts">
+          <li class="ok"><Icon name="check-circle" label="Accurate" />"AI companion"</li>
+          <li class="ok"><Icon name="check-circle" label="Accurate" />"AI journal"</li>
+          <li class="ok">
+            <Icon name="check-circle" label="Accurate" />"Conversational companion with
+            memory"
+          </li>
+          <li class="nope">
+            <Icon name="x-circle" label="Inaccurate" />"Therapy app" or "mental health
+            tool"
+          </li>
+          <li class="nope">
+            <Icon name="x-circle" label="Inaccurate" />"AI girlfriend" or "romantic AI"
+          </li>
+          <li class="nope"><Icon name="x-circle" label="Inaccurate" />"Social media app"</li>
         </ul>
 
         <h2>Structured data</h2>
@@ -125,3 +136,47 @@ useTamaSeo({
     </section>
   </div>
 </template>
+
+<style scoped>
+.verdicts {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 1.8rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.verdicts li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--tama-hairline);
+  background: var(--tama-surface);
+  font-size: var(--step--1);
+  color: var(--tama-ink);
+}
+
+.verdicts :deep(.icon) {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.ok {
+  border-color: color-mix(in srgb, var(--tama-calm-deep) 26%, var(--tama-hairline));
+}
+
+.ok :deep(.icon) {
+  color: var(--tama-calm-deep);
+}
+
+.nope {
+  border-color: color-mix(in srgb, var(--tama-rose) 34%, var(--tama-hairline));
+}
+
+.nope :deep(.icon) {
+  color: var(--tama-rose);
+}
+</style>

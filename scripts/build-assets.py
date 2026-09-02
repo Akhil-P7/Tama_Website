@@ -39,10 +39,10 @@ SANS_B = ["seguisb.ttf", "arialbd.ttf", "DejaVuSans-Bold.ttf"]
 def compress():
     targets = {
         "tama_mascot_avatar.jpg": 900,
-        "tama_open_lifebook.jpg": 1400,
-        "tama_cozy_night.jpg": 1400,
+        "tama_open_lifebook.png": 1400,
+        "tama_cozy_night.png": 1400,
         "tama_sunset_hill.jpg": 1400,
-        "tama_sleeping_clouds.jpg": 1400,
+        "tama_sleeping_clouds.svg": 1400,
     }
     report = []
     for name, max_w in targets.items():

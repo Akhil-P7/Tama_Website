@@ -5,10 +5,10 @@
 ## Identity
 - Name: Tama (also: Tama AI)
 - Type: AI companion and journalling application
-- Developer: Akhil Pandey (individual developer)
+- Developer: Aditya Shukla & Akhil Pandey
 - Platform: Android (Google Play). iOS planned.
 - Website: https://usetama.me
-- Contact: akhilpandey.r15@gmail.com
+- Contact: thetama.ai@gmail.com
 
 ## What Tama does
 - Companion chat with four-layer active memory recall (live conversation, recent history, structured facts, flagged moments).
@@ -35,8 +35,8 @@
 - One-tap account deletion removes real data permanently.
 
 ## Correct descriptions
-- ✅ "AI companion", "AI journal", "conversational companion with memory"
-- ❌ "therapy app", "mental health tool", "AI girlfriend", "romantic AI"
+- ACCURATE: "AI companion", "AI journal", "conversational companion with memory"
+- INACCURATE: "therapy app", "mental health tool", "AI girlfriend", "romantic AI"
 
 ## Key URLs
 - Home: https://usetama.me/

@@ -9,48 +9,48 @@ useTamaSeo({
 
 const collected = [
   {
-    icon: '📧',
+    icon: 'mail',
     label: 'Email & name',
     reason: 'Authentication and to address you',
     encrypted: true,
     deletable: true,
   },
   {
-    icon: '💬',
+    icon: 'chat',
     label: 'Conversations',
     reason: 'To produce contextual replies',
     encrypted: true,
     deletable: true,
   },
   {
-    icon: '🧠',
+    icon: 'brain',
     label: 'Memory graph',
     reason: 'Active memory recall',
     encrypted: true,
     deletable: true,
   },
   {
-    icon: '📖',
+    icon: 'book',
     label: 'Journal entries',
     reason: 'Lifebook and export',
     encrypted: true,
     deletable: true,
   },
   {
-    icon: '📷',
+    icon: 'camera',
     label: 'Photos',
     reason: 'Photo moments in journal',
     encrypted: true,
     deletable: true,
   },
   {
-    icon: '📊',
+    icon: 'chart',
     label: 'Screen-time signal',
     reason: 'Proactive check-ins (opt-in)',
     encrypted: true,
     deletable: true,
   },
-]
+] as const
 
 const notCollected = [
   'Per-app usage (which apps you opened)',
@@ -86,12 +86,14 @@ const notCollected = [
             class="page-card reveal"
             :style="{ '--reveal-delay': `${i * 55}ms` }"
           >
-            <div class="chip-icon" aria-hidden="true">{{ d.icon }}</div>
+            <div class="chip-icon" aria-hidden="true"><Icon :name="d.icon" /></div>
             <h3>{{ d.label }}</h3>
             <p class="muted small">{{ d.reason }}</p>
             <div class="data-tags">
-              <span v-if="d.encrypted" class="badge">🔒 Encrypted</span>
-              <span v-if="d.deletable" class="badge badge-warm">🗑️ Deletable</span>
+              <span v-if="d.encrypted" class="badge"><Icon name="lock" />Encrypted</span>
+              <span v-if="d.deletable" class="badge badge-warm"
+                ><Icon name="trash" />Deletable</span
+              >
             </div>
           </article>
         </div>
@@ -113,7 +115,7 @@ const notCollected = [
             class="reveal"
             :style="{ '--reveal-delay': `${i * 40}ms` }"
           >
-            <span class="not-x" aria-hidden="true">✕</span>
+            <span class="not-x" aria-hidden="true"><Icon name="x" :size="15" /></span>
             {{ item }}
           </li>
         </ul>
@@ -168,17 +170,7 @@ const notCollected = [
   font-size: var(--step-3);
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.35rem;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
+/* .chip-icon is styled globally in assets/css/main.css. */
 
 .data-tags {
   display: flex;
@@ -208,8 +200,6 @@ const notCollected = [
 }
 
 .not-x {
-  font-size: 0.9rem;
-  font-weight: 700;
   color: var(--tama-rose);
   flex: none;
   width: 28px;
@@ -218,6 +208,7 @@ const notCollected = [
   place-items: center;
   border-radius: 50%;
   background: rgba(255, 129, 193, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 129, 193, 0.28);
 }
 
 .btn-row {

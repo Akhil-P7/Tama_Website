@@ -9,26 +9,26 @@ useTamaSeo({
 
 const layers = [
   {
-    icon: '💬',
+    icon: 'chat',
     title: 'Live conversation',
     body: 'The current chat thread, with full context of what you have said in this session. This is ephemeral — it lasts for the conversation.',
   },
   {
-    icon: '📅',
+    icon: 'calendar',
     title: 'Recent history',
     body: 'A rolling summary of your last two weeks. What you talked about, the themes that came up, the emotional tone of your days.',
   },
   {
-    icon: '👤',
+    icon: 'user',
     title: 'Structured facts',
     body: 'The people you have named, the relationships between them, your preferences, your routines. This is a knowledge graph that grows with every conversation.',
   },
   {
-    icon: '⭐',
+    icon: 'star',
     title: 'Flagged moments',
     body: 'The moments you marked as significant — a milestone, a breakthrough, a hard day. These are retrieved with priority when they become relevant again.',
   },
-]
+] as const
 </script>
 
 <template>
@@ -58,7 +58,7 @@ const layers = [
             class="page-card reveal"
             :style="{ '--reveal-delay': `${i * 70}ms` }"
           >
-            <div class="chip-icon" aria-hidden="true">{{ l.icon }}</div>
+            <div class="chip-icon" aria-hidden="true"><Icon :name="l.icon" /></div>
             <h3>{{ l.title }}</h3>
             <p class="muted small">{{ l.body }}</p>
           </article>
@@ -168,17 +168,7 @@ const layers = [
   font-size: var(--step-3);
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.35rem;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
+/* .chip-icon is styled globally in assets/css/main.css. */
 
 .stages {
   list-style: none;

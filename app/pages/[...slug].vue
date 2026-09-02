@@ -10,7 +10,7 @@ useTamaSeo({
   <div class="not-found dark-band">
     <div class="wrap inner">
       <img
-        src="/images/tama_sleeping_clouds.jpg"
+        src="/images/tama_sleeping_clouds.svg"
         alt="Tama asleep on a cloud beneath a starry purple sky."
         width="600"
         height="448"

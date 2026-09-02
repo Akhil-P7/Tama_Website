@@ -10,27 +10,27 @@ useTamaSeo({
 const assets = [
   {
     label: 'Tama mascot avatar',
-    file: '/images/tama_mascot_avatar.jpg',
-    desc: 'Primary mascot — soft cream-coloured cloud creature with green sprout, starry night sky.',
+    file: '/images/tama-sprout-mark-512.png',
+    desc: 'Primary mascot — a render of the 3D sprout character on a transparent background.',
   },
   {
     label: 'Sunset hill scene',
-    file: '/images/tama_sunset_hill.jpg',
+    file: '/images/tama_sunset_hill.png',
     desc: 'Tama sitting on a grassy hill at sunset with a cup of tea.',
   },
   {
     label: 'Open Lifebook',
-    file: '/images/tama_open_lifebook.jpg',
+    file: '/images/tama_open_lifebook.png',
     desc: 'An open journal on a desk with illustrations, polaroids, and a fountain pen.',
   },
   {
     label: 'Cozy night',
-    file: '/images/tama_cozy_night.jpg',
+    file: '/images/tama_cozy_night.png',
     desc: 'Tama dozing on a windowsill at night beside a lantern, with snow falling outside.',
   },
   {
     label: 'Sleeping on clouds',
-    file: '/images/tama_sleeping_clouds.jpg',
+    file: '/images/tama_sleeping_clouds.svg',
     desc: 'Tama asleep on a cloud beneath a starry purple sky.',
   },
 ]

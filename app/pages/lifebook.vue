@@ -44,7 +44,7 @@ const howItWorks = [
       <div class="wrap">
         <div class="lb-hero-img reveal">
           <img
-            src="/images/tama_open_lifebook.jpg"
+            src="/images/tama_open_lifebook.png"
             alt="An open journal titled Lifebook on a sunlit wooden desk, filled with handwritten notes, small illustrations of Tama, and polaroid photographs, beside a steaming mug and a fountain pen."
             width="1200"
             height="896"
@@ -88,7 +88,7 @@ const howItWorks = [
 
         <div class="grid g-2">
           <article class="page-card reveal">
-            <div class="chip-icon" aria-hidden="true">📖</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="book-open" /></div>
             <h3>Daily entries</h3>
             <p class="muted small">
               Every conversation auto-summarises into a journal-style day page. You never
@@ -97,7 +97,7 @@ const howItWorks = [
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 60ms">
-            <div class="chip-icon" aria-hidden="true">📷</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="camera" /></div>
             <h3>Photo moments</h3>
             <p class="muted small">
               Attach a photo to a moment and it threads into the right day page —
@@ -107,7 +107,7 @@ const howItWorks = [
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 120ms">
-            <div class="chip-icon" aria-hidden="true">📅</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="calendar" /></div>
             <h3>Monthly & yearly recaps</h3>
             <p class="muted small">
               At the end of each month and year, Tama weaves your days into a recap
@@ -116,7 +116,7 @@ const howItWorks = [
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 180ms">
-            <div class="chip-icon" aria-hidden="true">💾</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="download" /></div>
             <h3>Always yours, always exportable</h3>
             <p class="muted small">
               Free tier keeps every entry forever. Your entries are never deleted for
@@ -166,7 +166,9 @@ const howItWorks = [
         </div>
 
         <p class="center-link">
-          <NuxtLink to="/pricing">See the full plan comparison →</NuxtLink>
+          <NuxtLink to="/pricing">
+            See the full plan comparison<Icon name="arrow-right" />
+          </NuxtLink>
         </p>
       </div>
     </section>
@@ -224,39 +226,11 @@ const howItWorks = [
   font-size: var(--step-1);
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.35rem;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
+/* .chip-icon and .ticks are styled globally in assets/css/main.css. */
 
 .ticks {
-  list-style: none;
-  padding: 0;
+  /* Last element in its column, so it does not need the global bottom margin. */
   margin: 1.2rem 0 0;
-  display: grid;
-  gap: 0.6rem;
-}
-
-.ticks li {
-  position: relative;
-  padding-left: 1.75rem;
-  font-size: var(--step--1);
-  color: var(--tama-ink-soft);
-}
-
-.ticks li::before {
-  content: '🌱';
-  position: absolute;
-  left: 0;
-  top: -0.05em;
-  font-size: 0.9rem;
 }
 
 .alt-bg {
@@ -293,12 +267,25 @@ const howItWorks = [
 }
 
 .center-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--tama-warmth);
   text-decoration: none;
 }
 
 .center-link a:hover {
   text-decoration: underline;
+}
+
+.center-link :deep(.icon) {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 0.24s var(--ease-out);
+}
+
+.center-link a:hover :deep(.icon) {
+  translate: 4px 0;
 }
 
 @media (min-width: 640px) {

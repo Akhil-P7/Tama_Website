@@ -80,7 +80,8 @@ npm run generate
 ## Author
 
 **Akhil Pandey** · [akhilpandey.r15@gmail.com](mailto:akhilpandey.r15@gmail.com)
+**Aditya Shukla** · [adityashukla.sm26@gmail.com](mailto:adityashukla.sm26@gmail.com)
 
 ## License
 
-All rights reserved. Tama name, mascot artwork, and website content © 2026 Akhil Pandey.
+All rights reserved. Tama name, mascot artwork, and website content © 2026 Aditya Shukla & Akhil Pandey.

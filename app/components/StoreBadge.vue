@@ -16,7 +16,7 @@
     class="btn btn-primary store"
     rel="noopener"
   >
-    <span aria-hidden="true">▶</span>
+    <Icon name="play" :size="20" />
     <span class="lines">
       <em>Get it on</em>
       <strong>Google Play</strong>
@@ -24,7 +24,14 @@
   </a>
 
   <span v-else class="btn store store-soon" role="text">
-    <span aria-hidden="true">🌱</span>
+    <span aria-hidden="true"><img
+            src="/logos/google-play.svg"
+            alt="Google Play logo"
+            width="50"
+            height="50"
+            loading="eager"
+            decoding="async"
+          /></span>
     <span class="lines">
       <em>Coming soon to</em>
       <strong>Google Play</strong>

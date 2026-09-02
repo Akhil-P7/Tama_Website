@@ -21,13 +21,22 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  vue: {
+    compilerOptions: {
+      // <model-viewer> is a custom element registered at runtime by
+      // @google/model-viewer. Without this, Vue tries to resolve it as a
+      // component and logs a resolution warning on every render.
+      isCustomElement: (tag) => tag === 'model-viewer',
+    },
+  },
+
   runtimeConfig: {
     public: {
       siteUrl: SITE_URL,
       siteName: SITE_NAME,
       siteDescription: SITE_DESC,
-      supportEmail: 'akhilpandey.r15@gmail.com',
-      developerName: 'Akhil Pandey',
+      supportEmail: 'thetama.ai@gmail.com',
+      developerName: 'Aditya Shukla, Akhil Pandey',
       packageName: 'com.tama.app',
     },
   },
@@ -76,20 +85,25 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
       titleTemplate: '%s',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/images/tama_mascot_avatar.jpg' },
-        { rel: 'apple-touch-icon', href: '/images/tama_mascot_avatar.jpg' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/tama-sprout-icon-32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '64x64', href: '/images/tama-sprout-icon-64.png' },
+        { rel: 'apple-touch-icon', href: '/images/tama-sprout-icon-180.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        // Variable-axis request: one file per family instead of eight static
+        // instances, and it covers the 700–900 display weights the new
+        // Discord-scale headlines need. `opsz` lets Fraunces switch to its
+        // high-contrast display drawing automatically at large sizes.
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400..800&display=swap',
         },
       ],
       meta: [
         { name: 'theme-color', content: '#081241' },
-        { name: 'author', content: 'Akhil Pandey' },
-        { name: 'publisher', content: 'Akhil Pandey' },
+        { name: 'author', content: 'Aditya Shukla, Akhil Pandey' },
+        { name: 'publisher', content: 'Aditya Shukla, Akhil Pandey' },
         { name: 'apple-mobile-web-app-title', content: 'Tama AI' },
         { name: 'application-name', content: 'Tama AI' },
         { name: 'format-detection', content: 'telephone=no' },

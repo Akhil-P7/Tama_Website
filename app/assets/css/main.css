@@ -1,7 +1,18 @@
 /* ============================================================================
    Tama AI — Design System
-   Tokens taken verbatim from docs/tama-ui-ux-design-spec.md §2 so the website
-   and the Android app read as one product.
+   ----------------------------------------------------------------------------
+   Colour and type tokens come from docs/tama-ui-ux-design-spec.md §2 so the
+   website and the Android app read as one product.
+
+   The LAYOUT language is modelled on discord.com: full-bleed colour bands
+   stacked in a rhythm, a centred display hero, zig-zag feature rows, an
+   infinite marquee strip, scattered star decorations at the section seams,
+   chunky pill buttons, and an oversized wordmark closing the page.
+
+   What we deliberately did NOT borrow is Discord's volume. Tama's whole
+   premise is a calm, trustworthy companion, so the shouting all-caps headline
+   treatment is inverted into a soft all-lowercase one, and the palette stays
+   warm paper and deep night rather than saturated blurple.
    ========================================================================= */
 
 :root {
@@ -29,12 +40,20 @@
   --tama-ink-12: rgba(58, 46, 66, 0.12);
   --tama-paper-deep: #f5e9ee;
   --tama-lavender: #9b72cf;
+  --tama-warmth-deep: #c2593d;
+  --tama-calm-deep: #4e7a60;
+
+  /* Readable text colours for use on the night band */
+  --on-night: #f4f1ff;
+  --on-night-soft: rgba(233, 231, 255, 0.76);
+  --on-night-faint: rgba(233, 231, 255, 0.58);
 
   /* ---- Typography (spec §2.2) ---- */
   --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Fluid type scale */
+  /* Fluid type scale. --step-6 and --step-7 exist for the Discord-scale
+     display hero and the oversized footer wordmark. */
   --step--1: clamp(0.8rem, 0.77rem + 0.14vw, 0.875rem);
   --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
   --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
@@ -42,23 +61,41 @@
   --step-3: clamp(1.6rem, 1.32rem + 1.3vw, 2.35rem);
   --step-4: clamp(1.95rem, 1.44rem + 2.4vw, 3.2rem);
   --step-5: clamp(2.3rem, 1.5rem + 3.8vw, 4.25rem);
+  --step-6: clamp(2.7rem, 1.5rem + 5.6vw, 5.6rem);
+  --step-7: clamp(4rem, 0.5rem + 16vw, 15rem);
 
   /* ---- Shape & elevation (spec §2.3) ---- */
   --r-page: 18px 18px 18px 4px;
   --r-card: 20px;
+  --r-shot: 26px;
   --r-pill: 999px;
-  --shadow-page: 0 2px 12px rgba(58, 46, 66, 0.06);
-  --shadow-lift: 0 18px 44px -18px rgba(58, 46, 66, 0.28);
-  --shadow-deep: 0 30px 70px -30px rgba(8, 18, 65, 0.55);
+  /* Two-layer shadows: a tight contact shadow that anchors the element to the
+     page, plus a wide, very soft ambient one. A single blur reads as fog; a
+     pair reads as an object sitting on a surface. */
+  --shadow-page: 0 1px 2px rgba(58, 46, 66, 0.05), 0 6px 16px -8px rgba(58, 46, 66, 0.1);
+  --shadow-lift: 0 2px 4px rgba(58, 46, 66, 0.06),
+    0 18px 44px -18px rgba(58, 46, 66, 0.26);
+  --shadow-deep: 0 3px 8px rgba(8, 18, 65, 0.24), 0 30px 70px -30px rgba(8, 18, 65, 0.55);
+  /* Discord's buttons bloom a soft shadow on hover rather than changing hue */
+  --shadow-bloom: 0 2px 6px rgba(58, 46, 66, 0.12), 0 14px 30px -10px rgba(58, 46, 66, 0.3);
+
+  /* Tama's sprout as a mask, so a list bullet can be the brand mark and still
+     take its colour from the band it sits in. Replaces the seedling emoji that
+     used to be a `content:` string and drew differently on every operating
+     system. */
+  --mask-sprout: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21v-8.4'/%3E%3Cpath d='M12 12.6c0-3.7 2.5-6.6 6.7-6.6.4 4.2-2.7 6.6-6.7 6.6z'/%3E%3Cpath d='M12 15.4c0-3-2.1-5.3-5.4-5.3-.3 3.4 2.2 5.3 5.4 5.3z'/%3E%3C/svg%3E");
 
   /* ---- Layout ---- */
   --wrap: 1160px;
+  --wrap-wide: 1320px;
   --wrap-narrow: 760px;
   --gutter: clamp(1.15rem, 4vw, 2.75rem);
   --section-y: clamp(4rem, 9vw, 8.5rem);
+  --header-h: 74px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ---------------------------------------------------------------- reset ---- */
@@ -71,7 +108,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
 }
 
 body {
@@ -85,6 +122,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Inter ships proper contextual alternates and a slashed-zero-adjacent set of
+     figures; `cv11` gives the single-storey 'a'-free lining digits used in the
+     price tables, and `ss03` the flat-topped '1' that stops "11:42 PM" reading
+     as "ll:42". */
+  font-feature-settings: 'cv11', 'ss03';
+  font-variant-numeric: proportional-nums;
+}
+
+/* Fraunces carries an `opsz` axis. Letting the browser drive it means the same
+   family draws with delicate high-contrast strokes at display sizes and with
+   sturdier ones at 14px, instead of one compromise weight everywhere. */
+h1,
+h2,
+h3,
+h4,
+.display,
+.italic,
+.serif-accent {
+  font-optical-sizing: auto;
 }
 
 img,
@@ -101,8 +157,8 @@ h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.015em;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
   margin: 0 0 0.5em;
   text-wrap: balance;
 }
@@ -147,9 +203,46 @@ a:hover {
   border-radius: 6px;
 }
 
+:is(.band-night, .dark-band) :where(a, button, summary, [tabindex]):focus-visible {
+  outline-color: var(--tama-peach-glow);
+}
+
 ::selection {
   background: var(--tama-warmth-soft);
   color: var(--tama-ink);
+}
+
+:is(.band-night, .dark-band) ::selection {
+  background: var(--tama-peach-glow);
+  color: var(--tama-dark-bg);
+}
+
+/* The default scrollbar is a grey slab against warm paper. Firefox takes the
+   standard property; WebKit needs its own pseudo-elements. */
+html {
+  scrollbar-color: var(--tama-ink-12) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tama-ink-12);
+  border: 3px solid transparent;
+  border-radius: 99px;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--tama-warmth) 60%, var(--tama-ink-12));
+  background-clip: content-box;
 }
 
 /* --------------------------------------------------------- a11y helpers ---- */
@@ -193,6 +286,10 @@ a:hover {
   padding-inline: var(--gutter);
 }
 
+.wrap-wide {
+  max-width: var(--wrap-wide);
+}
+
 .wrap-narrow {
   max-width: var(--wrap-narrow);
 }
@@ -200,6 +297,11 @@ a:hover {
 .section {
   padding-block: var(--section-y);
   position: relative;
+}
+
+/* Tighter vertical rhythm for bands that carry a big illustration */
+.section-sm {
+  padding-block: clamp(2.75rem, 6vw, 5rem);
 }
 
 .grid {
@@ -217,32 +319,103 @@ a:hover {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 218px), 1fr));
 }
 
-/* ------------------------------------------------------ dark sections ----- */
-.dark-band {
+.center {
+  text-align: center;
+}
+
+.center .eyebrow,
+.eyebrow.center-eyebrow {
+  justify-content: center;
+}
+
+.center .lede,
+.lede.center-lede {
+  margin-inline: auto;
+}
+
+/* ============================================================================
+   BANDS — the Discord rhythm. Sections are full-bleed colour blocks stacked
+   in an alternating sequence; nothing floats on a single flat page colour.
+   ========================================================================= */
+.band {
+  position: relative;
+  isolation: isolate;
+}
+
+.band-cream {
+  background: var(--tama-bg);
+}
+
+.band-paper,
+.alt-bg {
+  background: var(--tama-paper-deep);
+}
+
+.band-white {
+  background: var(--tama-surface);
+}
+
+.band-warm {
+  background:
+    radial-gradient(85% 70% at 12% 0%, color-mix(in srgb, var(--tama-peach-glow) 55%, transparent) 0%, transparent 62%),
+    linear-gradient(172deg, var(--tama-warmth-soft) 0%, #fdeee8 58%, var(--tama-bg) 100%);
+}
+
+.band-calm {
+  background:
+    radial-gradient(80% 70% at 88% 4%, color-mix(in srgb, var(--tama-calm) 22%, transparent) 0%, transparent 60%),
+    linear-gradient(172deg, var(--tama-calm-soft) 0%, #eef5f0 60%, var(--tama-bg) 100%);
+}
+
+/* Hairline seam, used where two light bands meet */
+.seam-top {
+  border-top: 1px solid var(--tama-hairline);
+}
+.seam-bottom {
+  border-bottom: 1px solid var(--tama-hairline);
+}
+
+/* ------------------------------------------------------ the night band ---- */
+/* `.dark-band` is the original name and stays supported everywhere. */
+:is(.band-night, .dark-band) {
   background:
     radial-gradient(120% 90% at 15% 0%, rgba(57, 84, 255, 0.28) 0%, transparent 55%),
     radial-gradient(100% 80% at 88% 8%, rgba(155, 114, 207, 0.24) 0%, transparent 58%),
     linear-gradient(168deg, var(--tama-dark-bg) 0%, #0d1a52 52%, var(--tama-dark-surface) 100%);
-  color: #f4f1ff;
+  color: var(--on-night);
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  /* A one-pixel highlight along the top edge. It is the difference between a
+     dark rectangle painted onto the page and a dark panel sitting on it — the
+     same trick a physical inlay uses to catch the light at its seam. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
 }
 
-.dark-band h1,
-.dark-band h2,
-.dark-band h3,
-.dark-band h4 {
+/* Film grain. The night gradient is very smooth and very large, which is
+   exactly where 8-bit colour banding shows; a barely-visible noise layer
+   dithers it away and reads as texture rather than as a screen artefact. */
+:is(.band-night, .dark-band)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+:is(.band-night, .dark-band) :is(h1, h2, h3, h4) {
   color: #fff;
 }
 
-.dark-band .lede,
-.dark-band .muted {
-  color: rgba(233, 231, 255, 0.76);
+:is(.band-night, .dark-band) :is(.lede, .muted) {
+  color: var(--on-night-soft);
 }
 
 /* Starfield — pure CSS, no images, no requests */
-.dark-band::before {
+:is(.band-night, .dark-band)::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -272,7 +445,9 @@ a:hover {
   }
 }
 
-/* ------------------------------------------------------------ eyebrow ----- */
+/* ============================================================================
+   TYPE TREATMENTS
+   ========================================================================= */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -293,12 +468,38 @@ a:hover {
   border-radius: 2px;
 }
 
-.dark-band .eyebrow {
+:is(.band-night, .dark-band) .eyebrow {
   color: var(--tama-peach-glow);
 }
 
-.dark-band .eyebrow::before {
+:is(.band-night, .dark-band) .eyebrow::before {
   background: var(--tama-peach-glow);
+}
+
+/* The display headline. Discord plays with case as its signature move —
+   we take the quiet half of that idea: all lowercase, very large, very tight. */
+.display {
+  font-family: var(--font-display);
+  font-size: var(--step-6);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+  margin: 0 0 0.35em;
+  text-wrap: balance;
+}
+
+.display-sm {
+  font-size: var(--step-4);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+/* Section headings adopt the same lowercase voice one size down */
+.h-lower {
+  text-transform: lowercase;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
 }
 
 .lede {
@@ -306,6 +507,12 @@ a:hover {
   color: var(--tama-ink-soft);
   line-height: 1.6;
   max-width: 62ch;
+}
+
+.lede-lg {
+  font-size: var(--step-2);
+  line-height: 1.5;
+  font-weight: 400;
 }
 
 .muted {
@@ -316,32 +523,74 @@ a:hover {
   font-size: var(--step--1);
 }
 
-.serif-accent {
+.serif-accent,
+.italic {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
 }
 
-/* ------------------------------------------------------------ buttons ----- */
+/* Warm accent on an italic serif fragment inside a display headline */
+.display .italic,
+.h-lower .italic {
+  color: var(--tama-warmth);
+  letter-spacing: -0.02em;
+}
+
+:is(.band-night, .dark-band) :is(.display, .h-lower) .italic {
+  color: var(--tama-peach-glow);
+}
+
+/* Section header block */
+.sec-head {
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.sec-head h2 {
+  font-size: var(--step-3);
+}
+
+.sec-head.center {
+  max-width: 44ch;
+  margin-inline: auto;
+}
+
+/* ============================================================================
+   BUTTONS — Discord's chunky pills. Hover blooms a shadow and lifts slightly;
+   active presses back down so the button feels physical.
+   ========================================================================= */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 52px;
-  padding: 0.85rem 1.75rem;
+  min-height: 54px;
+  padding: 0.9rem 1.9rem;
   border-radius: var(--r-pill);
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1;
+  letter-spacing: -0.005em;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out),
+  transition: transform 0.2s var(--ease-out), box-shadow 0.24s var(--ease-out),
     background 0.2s var(--ease-soft), color 0.2s var(--ease-soft),
     border-color 0.2s var(--ease-soft);
   will-change: transform;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+  transition-duration: 0.06s;
+}
+
+.btn-lg {
+  min-height: 62px;
+  padding: 1.05rem 2.3rem;
+  font-size: 1.0625rem;
 }
 
 .btn-primary {
@@ -353,7 +602,7 @@ a:hover {
 .btn-primary:hover {
   background: #de7259;
   transform: translateY(-2px);
-  box-shadow: 0 16px 34px -12px rgba(232, 131, 107, 0.9);
+  box-shadow: 0 18px 38px -12px rgba(232, 131, 107, 0.9);
 }
 
 .btn-ink {
@@ -364,29 +613,80 @@ a:hover {
 .btn-ink:hover {
   background: #2c2233;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
+  box-shadow: var(--shadow-bloom);
+}
+
+/* The white pill Discord puts on top of its saturated bands */
+.btn-paper {
+  background: #fff;
+  color: var(--tama-ink);
+  box-shadow: 0 10px 30px -14px rgba(8, 18, 65, 0.7);
+}
+
+.btn-paper:hover {
+  background: #fff;
+  color: var(--tama-warmth-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(8, 18, 65, 0.8);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--tama-ink);
-  border-color: var(--tama-hairline);
+  border-color: var(--tama-ink-12);
 }
 
 .btn-ghost:hover {
   border-color: var(--tama-ink);
   background: var(--tama-surface);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-page);
 }
 
-.dark-band .btn-ghost {
+:is(.band-night, .dark-band) .btn-ghost {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 
-.dark-band .btn-ghost:hover {
+:is(.band-night, .dark-band) .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: none;
+}
+
+/* Discord pairs its filled CTA with a plain text link. The arrow slides. */
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 54px;
+  padding: 0.5rem 0.2rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--tama-warmth-deep);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-text .icon {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 0.24s var(--ease-out);
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.btn-text:hover .icon {
+  translate: 4px 0;
+}
+
+:is(.band-night, .dark-band) .btn-text {
+  color: var(--tama-peach-glow);
 }
 
 .btn-row {
@@ -396,7 +696,224 @@ a:hover {
   align-items: center;
 }
 
-/* -------------------------------------------------------------- cards ----- */
+.center .btn-row,
+.btn-row.center {
+  justify-content: center;
+}
+
+/* ============================================================================
+   ZIG-ZAG FEATURE ROW — Discord's core content unit. Copy one side, art the
+   other, sides swapping on every row.
+   ========================================================================= */
+.zig {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.zig-copy h2 {
+  font-size: var(--step-3);
+  max-width: 24ch;
+}
+
+.zig-copy .lede {
+  max-width: 46ch;
+}
+
+@media (min-width: 900px) {
+  .zig {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Wider copy column when the art is a supporting card rather than a photo */
+  .zig-lean {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  /* Flip: art moves to the left without reordering the DOM, so the heading
+     still comes first for screen readers and in source order. */
+  .zig-flip > :first-child {
+    order: 2;
+  }
+
+  /* A flipped lean row moves the copy into the second cell, so the ratio has
+     to swap too — otherwise the narrow column would land under the copy. */
+  .zig-flip.zig-lean {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}
+
+/* Rounded art container with a warm offset glow behind it */
+.shot {
+  position: relative;
+  border-radius: var(--r-shot);
+  overflow: hidden;
+  border: 1px solid var(--tama-hairline);
+  box-shadow: var(--shadow-lift);
+}
+
+.shot img {
+  width: 100%;
+}
+
+/* An inner rim, drawn over the photo rather than around it, so the crop edge
+   stays crisp at any border-radius instead of showing the image's own pixels
+   fringing against the frame. */
+.shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0 -60px 70px -60px rgba(58, 46, 66, 0.4);
+  pointer-events: none;
+}
+
+:is(.band-night, .dark-band) .shot {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: var(--shadow-deep);
+}
+
+/* Glow puck sitting behind an illustration */
+.art-glow {
+  position: relative;
+}
+
+.art-glow::before {
+  content: '';
+  position: absolute;
+  inset: -8% -6%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--tama-warmth-soft) 0%, transparent 68%);
+  z-index: -1;
+  animation: halo-pulse 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+:is(.band-night, .dark-band) .art-glow::before {
+  background: radial-gradient(circle, rgba(255, 217, 179, 0.3) 0%, transparent 68%);
+}
+
+/* ============================================================================
+   MARQUEE — the scrolling word strip Discord runs between sections.
+   ========================================================================= */
+.marquee {
+  --marquee-duration: 34s;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  padding-block: clamp(0.85rem, 1.8vw, 1.35rem);
+  user-select: none;
+  /* Feather both ends so words dissolve rather than clip */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  padding-right: clamp(1.5rem, 3.5vw, 3rem);
+  animation: marquee-slide var(--marquee-duration) linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  flex: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.marquee-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  opacity: 0.72;
+}
+
+.marquee-mark .icon {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ============================================================================
+   STAR SCATTER — Discord sprinkles star clusters at the section seams.
+   ========================================================================= */
+.stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stars svg {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  /* Negative margins centre each star on its coordinate. Using margins rather
+     than a translate keeps the box clear of the scale/rotate in star-breathe. */
+  margin-top: calc(var(--s) / -2);
+  margin-left: calc(var(--s) / -2);
+  color: var(--tama-warmth);
+  opacity: 0;
+  animation: star-breathe 4.5s var(--ease-soft) infinite;
+  animation-delay: var(--d, 0ms);
+}
+
+:is(.band-night, .dark-band) .stars svg {
+  color: var(--tama-peach-glow);
+}
+
+@keyframes star-breathe {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.82) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1) rotate(18deg);
+  }
+}
+
+/* ============================================================================
+   CARDS
+   ========================================================================= */
 /* Signature dog-eared journal page card (spec §2.3.2) */
 .page-card {
   position: relative;
@@ -406,12 +923,12 @@ a:hover {
   padding: clamp(1.4rem, 2.6vw, 2.1rem);
   box-shadow: var(--shadow-page);
   transition: transform 0.32s var(--ease-out), box-shadow 0.32s var(--ease-out),
-    border-color 0.32s var(--ease-soft);
+    border-color 0.32s var(--ease-soft), background 0.32s var(--ease-soft);
   overflow: hidden;
 }
 
 .page-card::after {
-  /* 14px triangular dog-ear on the bottom-right */
+  /* 15px triangular dog-ear on the bottom-right */
   content: '';
   position: absolute;
   right: 0;
@@ -429,6 +946,15 @@ a:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lift);
   border-color: color-mix(in srgb, var(--tama-warmth) 40%, var(--tama-hairline));
+  /* A warm wash from the top-left corner, as if the card had tilted into the
+     light. Cheaper and calmer than a border or colour change. */
+  background:
+    radial-gradient(
+        130% 105% at 0% 0%,
+        color-mix(in srgb, var(--tama-warmth-soft) 42%, transparent) 0%,
+        transparent 58%
+      ),
+    var(--tama-surface);
 }
 
 .page-card:hover::after {
@@ -445,7 +971,11 @@ a:hover {
   margin-bottom: 0;
 }
 
-.dark-band .page-card {
+.page-card .badge {
+  margin-bottom: 0.8rem;
+}
+
+:is(.band-night, .dark-band) .page-card {
   background: rgba(28, 31, 95, 0.6);
   border-color: rgba(255, 255, 255, 0.15);
   color: rgba(233, 231, 255, 0.86);
@@ -453,32 +983,80 @@ a:hover {
   -webkit-backdrop-filter: blur(20px);
 }
 
-.dark-band .page-card::after {
+:is(.band-night, .dark-band) .page-card::after {
   background: linear-gradient(315deg, rgba(255, 255, 255, 0.22) 0 50%, transparent 50%);
   border-left-color: rgba(255, 255, 255, 0.2);
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 
-.dark-band .page-card:hover {
+:is(.band-night, .dark-band) .page-card:hover {
   border-color: rgba(255, 217, 179, 0.5);
+  background:
+    radial-gradient(130% 105% at 0% 0%, rgba(255, 217, 179, 0.15) 0%, transparent 58%),
+    rgba(28, 31, 95, 0.6);
 }
 
 /* Feature icon chip */
 .chip-icon {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.35rem;
-  line-height: 1;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  /* A soft inner light plus a hairline edge, so the chip reads as a raised
+     tile rather than a flat colour swatch. */
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)) ,
+    var(--tama-warmth-soft);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  color: var(--tama-warmth-deep);
   margin-bottom: 1rem;
   flex: none;
+  transition: transform 0.34s var(--ease-spring), background 0.24s var(--ease-soft);
 }
 
-.dark-band .chip-icon {
-  background: rgba(255, 217, 179, 0.16);
+.chip-icon .icon {
+  width: 25px;
+  height: 25px;
+}
+
+.page-card:hover .chip-icon {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+:is(.band-night, .dark-band) .chip-icon {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+    rgba(255, 217, 179, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  color: var(--tama-peach-glow);
+}
+
+/* ============================================================================
+   ICON SYSTEM — see app/components/Icon.vue.
+   Icons inherit `currentColor` and default to 1em, so these rules only exist
+   to correct the optical size in the few containers where a 1:1 match with the
+   text looks too heavy (badges, pills) or too light (buttons).
+   ========================================================================= */
+.badge .icon {
+  width: 1.15em;
+  height: 1.15em;
+  margin-left: -0.1em;
+}
+
+.pill-row li .icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--tama-warmth-deep);
+}
+
+:is(.band-night, .dark-band) .pill-row li .icon {
+  color: var(--tama-peach-glow);
+}
+
+.btn .icon {
+  width: 1.2em;
+  height: 1.2em;
 }
 
 /* Small pill badges */
@@ -493,7 +1071,7 @@ a:hover {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   background: var(--tama-calm-soft);
-  color: #4e7a60;
+  color: var(--tama-calm-deep);
   white-space: nowrap;
 }
 
@@ -514,9 +1092,84 @@ a:hover {
   color: #2438b8;
 }
 
-.dark-band .badge {
+:is(.band-night, .dark-band) .badge {
   background: rgba(255, 255, 255, 0.14);
   color: #fff;
+}
+
+/* Trust pill row — small reassurance chips under a CTA */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.center .pill-row {
+  justify-content: center;
+}
+
+.pill-row li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--tama-ink);
+  background: var(--tama-surface);
+  border: 1px solid var(--tama-hairline);
+  border-radius: var(--r-pill);
+  padding: 0.42rem 0.9rem;
+  transition: transform 0.24s var(--ease-out), border-color 0.24s var(--ease-soft);
+}
+
+.pill-row li:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tama-warmth) 50%, var(--tama-hairline));
+}
+
+:is(.band-night, .dark-band) .pill-row li {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Sprout-bulleted list */
+.ticks {
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0 1.8rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ticks li {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: var(--step--1);
+  color: var(--tama-ink-soft);
+}
+
+.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  width: 1.05rem;
+  height: 1.05rem;
+  background-color: var(--tama-calm-deep);
+  mask: var(--mask-sprout) center / contain no-repeat;
+  -webkit-mask: var(--mask-sprout) center / contain no-repeat;
+}
+
+:is(.band-night, .dark-band) .ticks li {
+  color: var(--on-night-soft);
+}
+
+:is(.band-night, .dark-band) .ticks li::before {
+  background-color: var(--tama-peach-glow);
 }
 
 /* ---------------------------------------------------------- chat demo ----- */
@@ -546,7 +1199,7 @@ a:hover {
 .table-scroll {
   overflow-x: auto;
   border: 1px solid var(--tama-hairline);
-  border-radius: 16px;
+  border-radius: var(--r-shot);
   background: var(--tama-surface);
   -webkit-overflow-scrolling: touch;
 }
@@ -600,7 +1253,7 @@ th[scope='row'] {
 }
 
 .yes {
-  color: #4e7a60;
+  color: var(--tama-calm-deep);
   font-weight: 600;
 }
 .no {
@@ -616,7 +1269,7 @@ th[scope='row'] {
   font-size: var(--step-2);
   margin-top: 2.6em;
   padding-top: 0.2em;
-  scroll-margin-top: 6rem;
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
 }
 
 .prose h2:first-child {
@@ -626,7 +1279,7 @@ th[scope='row'] {
 .prose h3 {
   font-size: var(--step-1);
   margin-top: 1.9em;
-  scroll-margin-top: 6rem;
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
 }
 
 .prose ul,
@@ -649,7 +1302,7 @@ th[scope='row'] {
 }
 
 .prose a {
-  color: #b8563c;
+  color: var(--tama-warmth-deep);
   font-weight: 500;
 }
 
@@ -680,7 +1333,7 @@ hr {
 
 /* Callout box */
 .callout {
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 1.15rem 1.35rem;
   margin: 1.6rem 0;
   font-size: var(--step--1);
@@ -720,7 +1373,7 @@ hr {
   padding: 0.95rem 1.15rem;
   background: var(--tama-surface);
   border: 1px solid var(--tama-hairline);
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
 .deflist dt {
@@ -732,6 +1385,91 @@ hr {
   margin: 0;
   font-size: var(--step--1);
   color: var(--tama-ink-soft);
+}
+
+/* ============================================================================
+   ACCORDION (FAQ) — shared so /support and the homepage stay identical
+   ========================================================================= */
+.faq-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.faq-item {
+  border: 1px solid var(--tama-hairline);
+  border-radius: 18px;
+  background: var(--tama-surface);
+  overflow: hidden;
+  transition: border-color 0.24s var(--ease-soft), box-shadow 0.24s var(--ease-soft);
+}
+
+.faq-item[open] {
+  border-color: color-mix(in srgb, var(--tama-warmth) 45%, var(--tama-hairline));
+  box-shadow: var(--shadow-page);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.3rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.98rem;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item .marker {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--tama-warmth-soft);
+  transition: transform 0.3s var(--ease-out), background 0.24s var(--ease-soft);
+}
+
+.faq-item .marker::before,
+.faq-item .marker::after {
+  content: '';
+  position: absolute;
+  inset: 50% 25%;
+  height: 2px;
+  translate: 0 -1px;
+  background: #a8503a;
+  border-radius: 2px;
+  transition: opacity 0.24s var(--ease-soft);
+}
+
+.faq-item .marker::after {
+  rotate: 90deg;
+}
+
+.faq-item[open] .marker {
+  transform: rotate(135deg);
+  background: var(--tama-warmth);
+}
+
+.faq-item[open] .marker::before,
+.faq-item[open] .marker::after {
+  background: #fff;
+}
+
+.faq-body {
+  padding: 0 1.3rem 1.3rem;
+}
+
+.faq-body p {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--tama-ink-soft);
+  line-height: 1.68;
+  max-width: 68ch;
 }
 
 /* --------------------------------------------------------- animations ----- */
@@ -823,12 +1561,29 @@ html.js-reveal .reveal.is-in {
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /* An animation-fill of 0.01ms would leave the stars invisible, so pin them
+     to a readable resting state instead. */
+  .stars svg {
+    opacity: 0.4;
+  }
+
+  /* The marquee carries real words — freeze it rather than hide it. */
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .marquee {
+    overflow-x: auto;
+  }
 }
 
 /* ------------------------------------------------------ print (legal) ---- */
 @media print {
   .site-header,
   .site-footer,
+  .marquee,
+  .stars,
   .no-print {
     display: none !important;
   }
@@ -839,8 +1594,12 @@ html.js-reveal .reveal.is-in {
     font-size: 11pt;
   }
 
-  .dark-band {
+  :is(.band-night, .dark-band) {
     background: #fff !important;
+    color: #000 !important;
+  }
+
+  :is(.band-night, .dark-band) :is(h1, h2, h3, h4) {
     color: #000 !important;
   }
 
@@ -861,11 +1620,17 @@ html.js-reveal .reveal.is-in {
 @media (forced-colors: active) {
   .page-card,
   .callout,
-  .table-scroll {
+  .table-scroll,
+  .faq-item {
     border: 1px solid CanvasText;
   }
 
   .btn {
     border: 1px solid ButtonText;
+  }
+
+  .stars,
+  :is(.band-night, .dark-band)::after {
+    display: none;
   }
 }

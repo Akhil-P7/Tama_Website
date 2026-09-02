@@ -9,8 +9,8 @@ export const APP = {
   fullName: 'Tama AI',
   tagline: 'Your life, remembered.',
   packageName: 'com.tama.app',
-  developer: 'Akhil Pandey',
-  email: 'akhilpandey.r15@gmail.com',
+  developer: 'Aditya Shukla & Akhil Pandey',
+  email: 'thetama.ai@gmail.com',
   category: 'Lifestyle',
   contentRating: 'Mature 17+ / 18+',
   platform: 'Android',
@@ -22,34 +22,39 @@ export const APP = {
   legalEffective: '27 August 2026',
 } as const
 
+/**
+ * `icon` values are names in app/components/Icon.vue. They are deliberately
+ * plain strings rather than emoji so the same mark renders identically on every
+ * OS, inherits the surrounding text colour, and is skipped by screen readers.
+ */
 export const PRINCIPLES = [
   {
-    icon: '🫂',
+    icon: 'heart-hands',
     title: 'Never paywall the care',
     body: 'Conversation and proactive check-ins are free, forever, uncapped. The part of Tama that looks after you is not a subscription feature.',
   },
   {
-    icon: '📖',
+    icon: 'book',
     title: 'Never paywall your own past',
     body: 'Every entry you create stays yours — always saved, always exportable, never deleted because you stopped paying.',
   },
   {
-    icon: '🤝',
+    icon: 'shield-check',
     title: 'Consent before acting on your behalf',
     body: 'Tama never messages someone in your life without asking you first, in the moment. There is no silent path — it does not exist in the code.',
   },
   {
-    icon: '🌱',
+    icon: 'sprout',
     title: 'No clinical language, ever',
     body: 'Tama may say “tonight felt heavy.” It will never say “you seem depressed.” It observes; it does not diagnose.',
   },
   {
-    icon: '🚫',
+    icon: 'circle-slash',
     title: 'No romantic roleplay, at any tier',
     body: 'A permanent product boundary, not a limitation we plan to lift or sell. Tama is a friend — not a partner substitute.',
   },
   {
-    icon: '🔍',
+    icon: 'search',
     title: 'Honest privacy claims only',
     body: 'We will not pretend nothing leaves your device — answering you requires a server. We tell you exactly what moves, and what never does.',
   },
@@ -58,7 +63,7 @@ export const PRINCIPLES = [
 export const FEATURES = [
   {
     slug: 'onboarding',
-    icon: '👋',
+    icon: 'smile',
     badge: 'Under 90 seconds',
     title: 'Meet a personality, not a form',
     short: 'Tama introduces itself by voice and asks a few light questions. Switch to text-only from the very first screen.',
@@ -72,7 +77,7 @@ export const FEATURES = [
   },
   {
     slug: 'chat',
-    icon: '💬',
+    icon: 'chat',
     badge: 'Free & uncapped care',
     title: 'A companion that actually remembers',
     short: 'Text or speak. Tama recalls what you told it days ago and brings it up the way a friend would.',
@@ -86,7 +91,7 @@ export const FEATURES = [
   },
   {
     slug: 'check-ins',
-    icon: '🌙',
+    icon: 'moon',
     badge: 'Signature feature',
     title: 'It notices before you say anything',
     short: 'With your permission, Tama watches for shifts in your own screen-time rhythm — and gently reaches out.',
@@ -101,7 +106,7 @@ export const FEATURES = [
   },
   {
     slug: 'special-people',
-    icon: '💛',
+    icon: 'heart',
     badge: 'Consent-gated',
     title: 'Someone in your corner — on your terms',
     short: 'Name people you trust. Tama asks you before it ever reaches out to them. Every single time.',
@@ -115,7 +120,7 @@ export const FEATURES = [
   },
   {
     slug: 'lifebook',
-    icon: '📖',
+    icon: 'book-open',
     badge: 'Signature visual',
     title: 'Your days, quietly becoming a book',
     short: 'Every conversation is compiled into a journal entry, and the entries become a real, turnable book.',
@@ -129,7 +134,7 @@ export const FEATURES = [
   },
   {
     slug: 'moments',
-    icon: '📷',
+    icon: 'camera',
     badge: 'Photo moments',
     title: 'Pictures, in their place',
     short: 'Attach a photo to a moment and find it again inside the day it belongs to.',
@@ -187,7 +192,7 @@ export const FAQS = [
   },
   {
     q: 'How do I delete my account and all of my data?',
-    a: 'From inside the app under Profile → Privacy & Data, or by emailing akhilpandey.r15@gmail.com. Deletion actually removes your rows from the database and your files from storage — it is not a hidden soft-delete flag. Full instructions are on our account deletion page.',
+    a: 'From inside the app under Profile → Privacy & Data, or by emailing thetama.ai@gmail.com. Deletion actually removes your rows from the database and your files from storage — it is not a hidden soft-delete flag. Full instructions are on our account deletion page.',
   },
   {
     q: 'What age do I need to be to use Tama?',
@@ -204,5 +209,116 @@ export const NAV = [
   { name: 'Lifebook', path: '/lifebook' },
   { name: 'Plans', path: '/pricing' },
   { name: 'Trust & Safety', path: '/safety' },
+  { name: 'Support', path: '/support' },
+] as const
+
+/**
+ * Header navigation, shaped for a mega-menu.
+ *
+ * An item with `groups` renders as a dropdown panel; an item with only `path`
+ * renders as a plain link. `art` is the decorative illustration shown inside
+ * the panel — the flourish discord.com puts in the corner of each of its
+ * dropdowns.
+ */
+export const MENU = [
+  {
+    name: 'Product',
+    art: '/images/tama_open_lifebook.png',
+    artAlt: '',
+    groups: [
+      {
+        heading: 'Explore',
+        links: [
+          {
+            name: 'All features',
+            path: '/features',
+            blurb: 'The complete v1 feature set, honestly scoped',
+          },
+          {
+            name: 'The Lifebook',
+            path: '/lifebook',
+            blurb: 'Your days, compiled into a book you can turn',
+          },
+          {
+            name: 'How memory works',
+            path: '/memory',
+            blurb: 'The four layers rebuilt on every reply',
+          },
+        ],
+      },
+      {
+        heading: 'Plans',
+        links: [
+          {
+            name: 'Free vs Premium',
+            path: '/pricing',
+            blurb: 'What is free forever, and what is not',
+          },
+          {
+            name: "What's new",
+            path: '/updates',
+            blurb: 'Release notes and what changed',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Trust',
+    art: '/images/tama_cozy_night.png',
+    artAlt: '',
+    groups: [
+      {
+        heading: 'Our commitments',
+        links: [
+          {
+            name: 'Trust & safety',
+            path: '/safety',
+            blurb: 'The boundaries that do not move',
+          },
+          {
+            name: 'Data safety summary',
+            path: '/data-safety',
+            blurb: 'Exactly what we collect, line by line',
+          },
+        ],
+      },
+      {
+        heading: 'The fine print',
+        links: [
+          { name: 'Privacy policy', path: '/privacy', blurb: 'Readable, not impressive' },
+          { name: 'Terms of use', path: '/terms', blurb: 'What you agree to' },
+          {
+            name: 'Delete your data',
+            path: '/delete-account',
+            blurb: 'Real rows removed, not a hidden flag',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'About',
+    art: '/images/tama_sunset_hill.png',
+    artAlt: '',
+    groups: [
+      {
+        heading: 'The project',
+        links: [
+          {
+            name: 'About & roadmap',
+            path: '/about',
+            blurb: 'Who builds this, and what is next',
+          },
+          { name: 'Press kit', path: '/press', blurb: 'Assets, facts and boilerplate' },
+          {
+            name: 'For AI agents',
+            path: '/for-agents',
+            blurb: 'Machine-readable facts about Tama',
+          },
+        ],
+      },
+    ],
+  },
   { name: 'Support', path: '/support' },
 ] as const

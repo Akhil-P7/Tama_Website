@@ -1,4 +1,15 @@
 <script setup lang="ts">
+/**
+ * Site footer, following discord.com's shape: a brand block beside grouped
+ * link columns, a thin legal bar, and an oversized wordmark cropped by the
+ * bottom edge of the page.
+ *
+ * The wordmark is decorative texture rather than content — the brand name is
+ * already announced in the link above it — so it is aria-hidden.
+ *
+ * There is no social-icon row because Tama has no social accounts; inventing
+ * dead links would break the site's own honesty rule.
+ */
 const year = 2026
 
 const columns = [
@@ -7,8 +18,9 @@ const columns = [
     links: [
       { name: 'All features', path: '/features' },
       { name: 'The Lifebook', path: '/lifebook' },
+      { name: 'How memory works', path: '/memory' },
       { name: 'Free vs Premium', path: '/pricing' },
-      { name: 'About & roadmap', path: '/about' },
+      { name: "What's new", path: '/updates' },
     ],
   },
   {
@@ -18,13 +30,14 @@ const columns = [
       { name: 'Privacy policy', path: '/privacy' },
       { name: 'Data safety summary', path: '/data-safety' },
       { name: 'Terms of use', path: '/terms' },
+      { name: 'Delete your data', path: '/delete-account' },
     ],
   },
   {
-    heading: 'Help',
+    heading: 'Company',
     links: [
+      { name: 'About & roadmap', path: '/about' },
       { name: 'Support & FAQ', path: '/support' },
-      { name: 'Delete your data', path: '/delete-account' },
       { name: 'Press kit', path: '/press' },
       { name: 'For AI agents', path: '/for-agents' },
     ],
@@ -33,16 +46,15 @@ const columns = [
 </script>
 
 <template>
-  <footer class="site-footer dark-band">
-    <div class="wrap">
+  <footer class="site-footer band-night">
+    <StarScatter field="sparse" />
+
+    <div class="wrap wrap-wide inner">
       <div class="top">
         <div class="ident">
           <NuxtLink to="/" class="fbrand" aria-label="Tama AI — home">
-            <img src="/images/tama_mascot_avatar.jpg" alt="" width="46" height="46" />
-            <span>
-              <strong>Tama</strong>
-              <em>Your life, remembered.</em>
-            </span>
+            <img src="/images/tama-sprout-icon-180.png" alt="" width="44" height="44" />
+            <span class="fbrand-word">tama</span>
           </NuxtLink>
           <p class="blurb">
             An AI companion that listens to your day, remembers the people who matter,
@@ -56,19 +68,16 @@ const columns = [
           </ul>
         </div>
 
-        <nav
-          v-for="col in columns"
-          :key="col.heading"
-          class="col"
-          :aria-label="col.heading"
-        >
-          <h2>{{ col.heading }}</h2>
-          <ul>
-            <li v-for="l in col.links" :key="l.path">
-              <NuxtLink :to="l.path">{{ l.name }}</NuxtLink>
-            </li>
-          </ul>
-        </nav>
+        <div class="cols">
+          <nav v-for="col in columns" :key="col.heading" :aria-label="col.heading">
+            <h2>{{ col.heading }}</h2>
+            <ul>
+              <li v-for="l in col.links" :key="l.path">
+                <NuxtLink :to="l.path">{{ l.name }}</NuxtLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
 
       <div class="crisis" role="note">
@@ -97,13 +106,24 @@ const columns = [
         </p>
       </div>
     </div>
+
+    <!-- The Discord move: brand set enormous and cropped by the page edge -->
+    <div class="wordmark" aria-hidden="true">
+      <span>tama</span>
+    </div>
   </footer>
 </template>
 
 <style scoped>
 .site-footer {
-  padding-block: clamp(3rem, 6vw, 5rem) 2rem;
+  position: relative;
+  padding-top: clamp(3rem, 6vw, 5rem);
   margin-top: auto;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
 }
 
 .top {
@@ -113,41 +133,39 @@ const columns = [
   padding-bottom: 2.5rem;
 }
 
+/* ------------------------------------------------------------- identity --- */
 .fbrand {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.7rem;
   text-decoration: none;
   margin-bottom: 1.1rem;
 }
 
 .fbrand img {
-  border-radius: 13px;
+  /* Transparent render — the shadow has to follow the silhouette rather than
+     outline a square. */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+  transition: transform 0.34s var(--ease-spring);
 }
 
-.fbrand span {
-  display: grid;
-  line-height: 1.25;
+.fbrand:hover img {
+  transform: rotate(-8deg) scale(1.1);
 }
 
-.fbrand strong {
+.fbrand-word {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
   color: #fff;
 }
 
-.fbrand em {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--tama-peach-glow);
-}
-
 .blurb {
-  max-width: 40ch;
+  max-width: 42ch;
   font-size: var(--step--1);
-  color: rgba(233, 231, 255, 0.72);
+  color: var(--on-night-soft);
   margin-bottom: 1.1rem;
 }
 
@@ -165,14 +183,21 @@ const columns = [
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.32rem 0.7rem;
+  padding: 0.34rem 0.75rem;
   border-radius: var(--r-pill);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.88);
 }
 
-.col h2 {
+/* -------------------------------------------------------------- columns --- */
+.cols {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+}
+
+.cols h2 {
   font-family: var(--font-body);
   font-size: 0.6875rem;
   font-weight: 700;
@@ -182,7 +207,7 @@ const columns = [
   margin-bottom: 0.9rem;
 }
 
-.col ul {
+.cols ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -190,22 +215,27 @@ const columns = [
   gap: 0.6rem;
 }
 
-.col a {
+.cols a {
   font-size: var(--step--1);
   color: rgba(233, 231, 255, 0.8);
   text-decoration: none;
   transition: color 0.18s var(--ease-soft), padding-left 0.22s var(--ease-out);
 }
 
-.col a:hover {
+.cols a:hover {
   color: #fff;
   padding-left: 4px;
 }
 
+.cols a.router-link-active {
+  color: var(--tama-peach-glow);
+}
+
+/* --------------------------------------------------------------- crisis --- */
 .crisis {
   border: 1px solid rgba(255, 217, 179, 0.34);
   background: rgba(255, 217, 179, 0.09);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 1rem 1.2rem;
   font-size: var(--step--1);
   line-height: 1.6;
@@ -221,6 +251,7 @@ const columns = [
   font-weight: 600;
 }
 
+/* --------------------------------------------------------------- bottom --- */
 .bottom {
   display: flex;
   flex-wrap: wrap;
@@ -236,7 +267,7 @@ const columns = [
 .contact {
   margin: 0;
   font-size: 0.78rem;
-  color: rgba(233, 231, 255, 0.6);
+  color: var(--on-night-faint);
 }
 
 .legal {
@@ -260,9 +291,39 @@ const columns = [
   text-decoration: underline;
 }
 
-@media (min-width: 720px) {
+/* ------------------------------------------------------------- wordmark --- */
+.wordmark {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+  /* Crop the lower third of the letterforms against the page edge */
+  height: calc(var(--step-7) * 0.6);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wordmark span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--step-7);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 217, 179, 0.09) 55%,
+    rgba(255, 217, 179, 0) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (min-width: 860px) {
   .top {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 0.95fr 1.35fr;
   }
 }
 </style>

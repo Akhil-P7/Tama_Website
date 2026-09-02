@@ -2,7 +2,7 @@
 useTamaSeo({
   title: 'Support & FAQ',
   description:
-    'Get help with Tama. Find answers to common questions about memory, privacy, subscriptions, and account management. Contact Akhil Pandey directly at akhilpandey.r15@gmail.com.',
+    'Get help with Tama. Find answers to common questions about memory, privacy, subscriptions, and account management. Contact Support directly at thetama.ai@gmail.com.',
   path: '/support',
   breadcrumbs: [{ name: 'Support', path: '/support' }],
   schema: [
@@ -32,7 +32,7 @@ useTamaSeo({
       <div class="wrap">
         <div class="contact-grid">
           <article class="page-card reveal">
-            <div class="chip-icon" aria-hidden="true">📧</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="mail" /></div>
             <h2>Email us</h2>
             <p class="muted small">
               For questions, bug reports, feature suggestions, data deletion requests, or
@@ -42,7 +42,7 @@ useTamaSeo({
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 80ms">
-            <div class="chip-icon" aria-hidden="true">🗑️</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="trash" /></div>
             <h2>Delete your data</h2>
             <p class="muted small">
               Want to permanently delete your account and all associated data? Follow the
@@ -126,17 +126,7 @@ useTamaSeo({
   gap: clamp(1.1rem, 2.4vw, 1.85rem);
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.35rem;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
+/* .chip-icon is styled globally in assets/css/main.css. */
 
 .contact-grid h2 {
   font-size: var(--step-2);

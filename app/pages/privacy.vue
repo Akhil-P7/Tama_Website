@@ -143,10 +143,10 @@ useTamaSeo({
             — it is not a hidden soft-delete flag.
           </li>
         </ul>
-        <p>
-          <NuxtLink to="/delete-account"
-            >Full account deletion instructions →</NuxtLink
-          >
+        <p class="deletion-link">
+          <NuxtLink to="/delete-account">
+            Full account deletion instructions<Icon name="arrow-right" />
+          </NuxtLink>
         </p>
 
         <h2>8. Children's privacy</h2>
@@ -174,6 +174,28 @@ useTamaSeo({
 </template>
 
 <style scoped>
+.deletion-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.deletion-link a:hover {
+  text-decoration: underline;
+}
+
+.deletion-link :deep(.icon) {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 0.24s var(--ease-out);
+}
+
+.deletion-link a:hover :deep(.icon) {
+  translate: 4px 0;
+}
+
 .meta {
   margin-top: 1.2rem;
   font-size: var(--step--1);

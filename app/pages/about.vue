@@ -2,7 +2,7 @@
 useTamaSeo({
   title: 'About Tama — Mission & Creator',
   description:
-    'Tama is an AI companion built by Akhil Pandey. It is deliberately non-clinical, non-compulsive, and non-romantic — a friend, not a therapist or a partner substitute.',
+    'Tama is an AI companion built by Aditya Shukla & Akhil Pandey. It is deliberately non-clinical, non-compulsive, and non-romantic — a friend, not a therapist or a partner substitute.',
   path: '/about',
   breadcrumbs: [{ name: 'About', path: '/about' }],
 })
@@ -81,7 +81,7 @@ useTamaSeo({
       <div class="wrap wrap-narrow">
         <header class="sec-head reveal">
           <p class="eyebrow">The builder</p>
-          <h2>Built by Akhil Pandey</h2>
+          <h2>Built by Aditya Shukla & Akhil Pandey</h2>
         </header>
 
         <div class="builder-card page-card reveal">

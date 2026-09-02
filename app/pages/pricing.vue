@@ -54,7 +54,7 @@ useTamaSeo({
 
         <div class="prose-grid">
           <article class="page-card reveal">
-            <div class="chip-icon" aria-hidden="true">🫂</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="heart-hands" /></div>
             <h3>Care stays free</h3>
             <p class="small">
               Companion chat and proactive pattern check-ins are free, forever, uncapped.
@@ -64,7 +64,7 @@ useTamaSeo({
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 60ms">
-            <div class="chip-icon" aria-hidden="true">📖</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="book" /></div>
             <h3>Your past stays yours</h3>
             <p class="small">
               Every journal entry you create stays saved, stays exportable, and is never
@@ -74,7 +74,7 @@ useTamaSeo({
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 120ms">
-            <div class="chip-icon" aria-hidden="true">🚫</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="circle-slash" /></div>
             <h3>No advertising, ever</h3>
             <p class="small">
               There are no advertisements at any tier. No ad identifiers. No tracking
@@ -83,7 +83,7 @@ useTamaSeo({
           </article>
 
           <article class="page-card reveal" style="--reveal-delay: 180ms">
-            <div class="chip-icon" aria-hidden="true">💳</div>
+            <div class="chip-icon" aria-hidden="true"><Icon name="card" /></div>
             <h3>Cancel anytime</h3>
             <p class="small">
               Subscriptions are managed through Google Play. Cancel anytime from your
@@ -121,7 +121,9 @@ useTamaSeo({
         </div>
 
         <p class="reveal center-link" style="--reveal-delay: 120ms">
-          <NuxtLink to="/delete-account">How to delete your account →</NuxtLink>
+          <NuxtLink to="/delete-account">
+            How to delete your account<Icon name="arrow-right" />
+          </NuxtLink>
         </p>
       </div>
     </section>
@@ -140,17 +142,7 @@ useTamaSeo({
   font-size: var(--step-3);
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: rgba(255, 217, 179, 0.16);
-  font-size: 1.35rem;
-  line-height: 1;
-  margin-bottom: 1rem;
-}
+/* .chip-icon is styled globally in assets/css/main.css. */
 
 .prose-grid {
   display: grid;
@@ -165,12 +157,25 @@ useTamaSeo({
 }
 
 .center-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--tama-warmth);
   text-decoration: none;
 }
 
 .center-link a:hover {
   text-decoration: underline;
+}
+
+.center-link :deep(.icon) {
+  width: 1.15em;
+  height: 1.15em;
+  transition: translate 0.24s var(--ease-out);
+}
+
+.center-link a:hover :deep(.icon) {
+  translate: 4px 0;
 }
 
 @media (min-width: 640px) {

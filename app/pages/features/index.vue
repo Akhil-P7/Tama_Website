@@ -26,7 +26,7 @@ useTamaSeo({
     >
       <div class="wrap fg" :class="{ 'fg-flip': i % 2 === 1 }">
         <div class="reveal" :style="{ '--reveal-delay': '60ms' }">
-          <div class="chip-icon" aria-hidden="true">{{ f.icon }}</div>
+          <div class="chip-icon" aria-hidden="true"><Icon :name="f.icon" /></div>
           <span class="badge" :class="i === 2 || i === 4 ? 'badge-warm' : ''">
             {{ f.badge }}
           </span>
@@ -40,7 +40,7 @@ useTamaSeo({
         <!-- Visual placeholder / decorative card -->
         <div class="feature-visual reveal" :style="{ '--reveal-delay': '140ms' }">
           <div class="page-card demo-card">
-            <span class="demo-icon" aria-hidden="true">{{ f.icon }}</span>
+            <span class="demo-icon" aria-hidden="true"><Icon :name="f.icon" /></span>
             <h3>{{ f.title }}</h3>
             <p class="muted small">{{ f.short }}</p>
           </div>
@@ -68,7 +68,7 @@ useTamaSeo({
             class="page-card reveal"
             :style="{ '--reveal-delay': `${i * 50}ms` }"
           >
-            <div class="chip-icon" aria-hidden="true">{{ p.icon }}</div>
+            <div class="chip-icon" aria-hidden="true"><Icon :name="p.icon" /></div>
             <h3>{{ p.title }}</h3>
             <p class="muted small">{{ p.body }}</p>
           </article>
@@ -95,17 +95,7 @@ useTamaSeo({
   align-items: center;
 }
 
-.chip-icon {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: var(--tama-warmth-soft);
-  font-size: 1.5rem;
-  line-height: 1;
-  margin-bottom: 1.2rem;
-}
+/* .chip-icon and .ticks are styled globally in assets/css/main.css. */
 
 h2 {
   font-size: var(--step-3);
@@ -113,26 +103,8 @@ h2 {
 }
 
 .ticks {
-  list-style: none;
-  padding: 0;
-  margin: 1.4rem 0 0;
-  display: grid;
-  gap: 0.6rem;
-}
-
-.ticks li {
-  position: relative;
-  padding-left: 1.75rem;
-  font-size: var(--step--1);
-  color: var(--tama-ink-soft);
-}
-
-.ticks li::before {
-  content: '🌱';
-  position: absolute;
-  left: 0;
-  top: -0.05em;
-  font-size: 0.9rem;
+  /* Last element in the column, so it does not need the global bottom margin. */
+  margin-bottom: 0;
 }
 
 .feature-visual {
@@ -146,9 +118,22 @@ h2 {
 }
 
 .demo-icon {
-  font-size: 2.6rem;
-  margin-bottom: 1rem;
-  display: block;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 1.1rem;
+  border-radius: 22px;
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)),
+    var(--tama-warmth-soft);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  color: var(--tama-warmth-deep);
+}
+
+.demo-icon :deep(.icon) {
+  width: 32px;
+  height: 32px;
 }
 
 .demo-card h3 {

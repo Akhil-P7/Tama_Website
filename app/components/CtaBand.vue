@@ -1,99 +1,128 @@
 <script setup lang="ts">
+/**
+ * Closing call-to-action, shaped like the band discord.com ends every page with:
+ * centred copy, an oversized headline that comments on the fact you have run out
+ * of page, and a wide illustration cropped along the bottom edge.
+ *
+ * `heading` / `accent` split the headline in two so the second line can be set
+ * in italic display type without any page needing to pass markup.
+ */
 withDefaults(
   defineProps<{
     heading?: string
+    accent?: string
     body?: string
     /** Show the secondary "how we handle your data" link. */
     privacy?: boolean
   }>(),
   {
-    heading: 'Tama is coming to Google Play',
-    body: 'Android first, built in the open. Care is free forever — no ads, no romantic roleplay, no paywalled memories.',
+    heading: 'you reached the end of the page.',
+    accent: 'your Lifebook starts on page one.',
+    body: 'Android first, built in the open. Care is free forever — no ads, no romantic roleplay, no paywalled memories, and every entry stays exportable whatever you pay.',
     privacy: true,
   },
 )
 </script>
 
 <template>
-  <section class="cta dark-band">
+  <section class="cta band-night">
+    <StarScatter field="dense" />
+
     <div class="wrap inner">
-      <img
-        src="/images/tama_sleeping_clouds.jpg"
-        alt="Tama asleep on a cloud beneath a starry purple sky."
-        width="1200"
-        height="896"
-        class="art reveal"
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="copy reveal" style="--reveal-delay: 90ms">
-        <p class="eyebrow">Get Tama</p>
-        <h2>{{ heading }}</h2>
-        <p class="lede">{{ body }}</p>
-        <div class="btn-row">
+      <div class="copy center reveal">
+        <p class="eyebrow center-eyebrow">Get Tama</p>
+        <h2 class="display display-sm">
+          {{ heading }}<br />
+          <span class="italic">{{ accent }}</span>
+        </h2>
+        <p class="lede center-lede">{{ body }}</p>
+
+        <div class="btn-row center cta-actions">
           <StoreBadge />
-          <NuxtLink v-if="privacy" to="/data-safety" class="btn btn-ghost">
+          <NuxtLink v-if="privacy" to="/data-safety" class="btn btn-paper">
             See exactly what we collect
           </NuxtLink>
         </div>
+
         <p class="tiny">
           Free to start · No advertisements at any tier · Your entries are always
           exportable
         </p>
       </div>
     </div>
+
+    <!-- Wide art cropped by the band's bottom edge, the way Discord signs off -->
+    <div class="art-stage reveal" style="--reveal-delay: 120ms">
+      <img
+        src="/images/tama_sleeping_clouds.svg"
+        alt="Tama asleep on a cloud beneath a starry purple sky."
+        width="1200"
+        height="896"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
   </section>
 </template>
 
 <style scoped>
 .cta {
-  padding-block: clamp(3.5rem, 7vw, 6rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
 .inner {
-  display: grid;
-  gap: clamp(1.8rem, 4vw, 3.5rem);
-  align-items: center;
-}
-
-.art {
-  border-radius: 22px;
-  box-shadow: var(--shadow-deep);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  order: 2;
+  position: relative;
+  z-index: 1;
 }
 
 .copy {
-  order: 1;
+  max-width: 44rem;
+  margin-inline: auto;
 }
 
-h2 {
-  font-size: var(--step-3);
-  max-width: 22ch;
+.display-sm {
+  max-width: 26ch;
+  margin-inline: auto;
 }
 
-.lede {
-  max-width: 46ch;
+.cta-actions {
+  margin: 1.8rem 0 1.2rem;
 }
 
 .tiny {
-  margin-top: 1.1rem;
   margin-bottom: 0;
   font-size: 0.78rem;
-  color: rgba(233, 231, 255, 0.6);
+  color: var(--on-night-faint);
 }
 
-@media (min-width: 860px) {
-  .inner {
-    grid-template-columns: 1fr 1fr;
-  }
+/* ------------------------------------------------------------- art stage --- */
+.art-stage {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+  /* Bleed past the wrap and crop hard on the bottom edge of the band */
+  margin-bottom: calc(clamp(2rem, 5vw, 3.5rem) * -1);
+  padding-inline: var(--gutter);
+}
 
-  .art {
-    order: 1;
-  }
+.art-stage img {
+  display: block;
+  width: min(100%, var(--wrap));
+  margin-inline: auto;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  object-position: 50% 34%;
+  border-radius: var(--r-shot) var(--r-shot) 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 0;
+  box-shadow: var(--shadow-deep);
+}
 
-  .copy {
-    order: 2;
+@media (min-width: 900px) {
+  .art-stage img {
+    aspect-ratio: 21 / 8;
   }
 }
 </style>
